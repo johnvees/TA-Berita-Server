@@ -1,0 +1,27 @@
+kategori :{
+    jenis: string,
+    beritaId: [{_id : ObjectId}],
+},
+
+berita: {
+    judul: string,
+    isi: string,
+    date: date,
+    imageUrl: string,
+    link: string
+},
+
+users: {
+    namaLengkap: string,
+    username: string,
+    password: string
+}
+
+pencarian: {
+    kataKunci: string,
+    minSimilarity: mongoose.Types.Decimal128,
+    cosSin: mongoose.Types.Decimal128,
+    topikBerita: string,
+    kategoriId: [{_id : ObjectId}],
+    beritaId: [{_id : ObjectId}],
+}
