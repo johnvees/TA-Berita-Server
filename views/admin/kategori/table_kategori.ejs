@@ -26,6 +26,22 @@
             <th>Action</th>
           </tr>
         </thead>
+        <tbody>
+          <% for(let i = 0; i < kategori.length; i++){ %>
+          <tr>
+            <td><%= i+1 %></td>
+            <td><%= kategori[i].jenis %></td>
+            <td>
+              <a href="" class="btn btn-warning btn-sm"
+                ><i class="fas fa-edit"></i
+              ></a>
+              <a href="" class="btn btn-danger btn-sm"
+                ><i class="fas fa-trash"></i
+              ></a>
+            </td>
+          </tr>
+          <% } %>
+        </tbody>
       </table>
     </div>
   </div>

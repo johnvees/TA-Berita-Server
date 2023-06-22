@@ -5,8 +5,10 @@ module.exports = {
     res.render('admin/dashboard/view_dashboard');
   },
 
-  viewKategori: (req, res) => {
-    res.render('admin/kategori/view_kategori');
+  viewKategori: async (req, res) => {
+    const kategori = await Kategori.find();
+    // console.log(kategori);
+    res.render('admin/kategori/view_kategori', { kategori });
   },
   addKategori: async (req, res) => {
     const { jenis } = req.body;
