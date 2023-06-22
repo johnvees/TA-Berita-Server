@@ -11,7 +11,9 @@ router.delete('/kategori/:id', adminController.deleteKategori);
 
 router.get('/users', adminController.viewUsers);
 
+// endpoint berita
 router.get('/berita', adminController.viewBerita);
+router.post('/berita', adminController.addBerita);
 
 router.get('/pencarian', adminController.viewPencarian);
 

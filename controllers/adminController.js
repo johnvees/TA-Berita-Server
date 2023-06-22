@@ -1,4 +1,5 @@
 const Kategori = require('../models/Kategori');
+const Berita = require('../models/Berita');
 
 module.exports = {
   viewDashboard: (req, res) => {
@@ -32,7 +33,7 @@ module.exports = {
       req.flash('alertStatus', 'success');
       res.redirect('/admin/kategori');
     } catch (error) {
-      req.flash('alertMessage', `$error.message`);
+      req.flash('alertMessage', `${error.message}`);
       req.flash('alertStatus', 'danger');
       res.redirect('/admin/kategori');
     }
@@ -48,7 +49,7 @@ module.exports = {
       req.flash('alertStatus', 'success');
       res.redirect('/admin/kategori');
     } catch (error) {
-      req.flash('alertMessage', `$error.message`);
+      req.flash('alertMessage', `${error.message}`);
       req.flash('alertStatus', 'danger');
       res.redirect('/admin/kategori');
     }
@@ -63,7 +64,7 @@ module.exports = {
       req.flash('alertStatus', 'success');
       res.redirect('/admin/kategori');
     } catch (error) {
-      req.flash('alertMessage', `$error.message`);
+      req.flash('alertMessage', `${error.message}`);
       req.flash('alertStatus', 'danger');
       res.redirect('/admin/kategori');
     }
@@ -75,10 +76,46 @@ module.exports = {
     });
   },
 
-  viewBerita: (req, res) => {
-    res.render('admin/berita/view_berita', {
-      title: 'Kurator Berita Admin | Berita',
-    });
+  viewBerita: async (req, res) => {
+    try {
+      const kategori = await Kategori.find();
+      const alertMessage = req.flash('alertMessage');
+      const alertStatus = req.flash('alertStatus');
+      const alert = { message: alertMessage, status: alertStatus };
+      res.render('admin/berita/view_berita', {
+        title: 'Kurator Berita Admin | Berita',
+        kategori,
+        alert,
+      });
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/admin/berita');
+    }
+  },
+  addBerita: async (req, res) => {
+    try {
+      const { kategoriId, judul, isi, tanggal, gambar, url } = req.body;
+      const kategori = await Kategori.findOne({ _id: kategoriId });
+      const beritaBaru = {
+        kategoriId: kategori._id,
+        judul,
+        isi,
+        date: tanggal,
+        imageUrl: gambar,
+        link: url,
+      };
+      const berita = await Berita.create(beritaBaru);
+      kategori.beritaId.push({ _id: berita._id });
+      await kategori.save();
+      req.flash('alertMessage', 'Berhasil Menambahkan Berita Baru');
+      req.flash('alertStatus', 'success');
+      res.redirect('/admin/berita');
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/admin/berita');
+    }
   },
 
   viewPencarian: (req, res) => {
