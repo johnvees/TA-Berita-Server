@@ -22,12 +22,10 @@ const beritaSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-  kategoriId: [
-    {
-      type: ObjectId,
-      ref: 'Kategori',
-    },
-  ],
+  kategoriId: {
+    type: ObjectId,
+    ref: 'Kategori',
+  },
 });
 
 module.exports = mongoose.model('Berita', beritaSchema);

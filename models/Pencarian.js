@@ -24,12 +24,10 @@ const pencarianSchema = new mongoose.Schema({
       ref: 'Berita',
     },
   ],
-  kategoriId: [
-    {
-      type: ObjectId,
-      ref: 'Kategori',
-    },
-  ],
+  kategoriId: {
+    type: ObjectId,
+    ref: 'Kategori',
+  },
 });
 
 module.exports = mongoose.model('Pencarian', pencarianSchema);

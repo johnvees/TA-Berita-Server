@@ -78,13 +78,16 @@ module.exports = {
 
   viewBerita: async (req, res) => {
     try {
+      const berita = await Berita.find();
       const kategori = await Kategori.find();
+      console.log(kategori);
       const alertMessage = req.flash('alertMessage');
       const alertStatus = req.flash('alertStatus');
       const alert = { message: alertMessage, status: alertStatus };
       res.render('admin/berita/view_berita', {
         title: 'Kurator Berita Admin | Berita',
         kategori,
+        berita,
         alert,
       });
     } catch (error) {
@@ -97,6 +100,7 @@ module.exports = {
     try {
       const { kategoriId, judul, isi, tanggal, gambar, url } = req.body;
       const kategori = await Kategori.findOne({ _id: kategoriId });
+      console.log(judul);
       const beritaBaru = {
         kategoriId: kategori._id,
         judul,

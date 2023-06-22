@@ -1,0 +1,78 @@
+<div
+  class="tab-pane fade"
+  id="add-berita"
+  role="tabpanel"
+  aria-labelledby="nav-profile-tab"
+>
+  <div class="card shadow mb-4 mb-2">
+    <div class="card-body">
+      <form action="/admin/berita" method="POST">
+        <div class="form-group">
+          <label for="judul-berita">Judul</label>
+          <input
+            type="text"
+            class="form-control"
+            id="judul-berita"
+            name="judul"
+            placeholder="Masukkan Judul Berita"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="isi-berita">Isi</label>
+          <input
+            type="text"
+            class="form-control"
+            id="isi-berita"
+            name="isi"
+            placeholder="Masukkan Isi Berita"
+            required
+          />
+        </div>
+        <div class="form-group">
+          <label for="tanggal-berita">Tanggal</label>
+          <input
+            type="date"
+            class="form-control"
+            id="tanggal-berita"
+            name="tanggal"
+            placeholder="Masukkan Tanggal Berita"
+          />
+        </div>
+        <div class="form-group">
+          <label for="gambar-berita">Gambar</label>
+          <input
+            type="text"
+            class="form-control"
+            id="gambar-berita"
+            name="gambar"
+            placeholder="Masukkan URL Gambar Berita"
+          />
+        </div>
+        <div class="form-group">
+          <label for="url-berita">URL</label>
+          <input
+            type="text"
+            class="form-control"
+            id="url-berita"
+            name="url"
+            placeholder="Masukkan URL Berita"
+          />
+        </div>
+        <div class="form-group">
+          <label for="kategoriId">Kategori</label>
+          <select name="kategoriId" class="form-control">
+            <option value="">--- Kategori ---</option>
+            <% for (let i = 0; i < kategori.length; i++) { %>
+            <option value="<%= kategori[i].id %>">
+              <%= kategori[i].jenis %>
+            </option>
+            <% } %>
+          </select>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Tambah</button>
+      </form>
+    </div>
+  </div>
+</div>
