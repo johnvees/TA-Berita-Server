@@ -16,6 +16,14 @@ module.exports = {
     await Kategori.create({ jenis });
     res.redirect('/admin/kategori');
   },
+  editKategori: async (req, res) => {
+    const { id, jenis } = req.body;
+    const kategori = await Kategori.findOne({ _id: id });
+    // console.log(kategori);
+    kategori.jenis = jenis;
+    await kategori.save();
+    res.redirect('/admin/kategori');
+  },
 
   viewUsers: (req, res) => {
     res.render('admin/users/view_users');
