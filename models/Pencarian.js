@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const { ObjectId } = mongoose.Schema;
 
-const topik = new Schema({ topikBerita: String, required: true });
-const similarity = new Schema({
+const topik = new mongoose.Schema({ topikBerita: String, required: true });
+const similarity = new mongoose.Schema({
   cosSin: mongoose.Types.Decimal128,
   required: true,
 });

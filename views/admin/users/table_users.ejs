@@ -19,6 +19,15 @@
             <th>Action</th>
           </tr>
         </thead>
+        <tbody>
+          <% for(let i = 0; i < users.length; i++) { %>
+          <tr>
+            <td><%= i+1 %></td>
+            <td><%= users[i].namaLengkap %></td>
+            <td><%= users[i].username %></td>
+          </tr>
+          <% } %>
+        </tbody>
       </table>
     </div>
   </div>

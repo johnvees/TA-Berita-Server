@@ -1,11 +1,76 @@
 const Kategori = require('../models/Kategori');
 const Berita = require('../models/Berita');
+const Users = require('../models/Users');
+// const Pencarian = require('../models/Pencarian');
+const bycrypt = require('bcryptjs');
 
 module.exports = {
-  viewDashboard: (req, res) => {
-    res.render('admin/dashboard/view_dashboard', {
-      title: 'Kurator Berita Admin | Dashboard',
-    });
+  viewSignin: async (req, res) => {
+    try {
+      const alertMessage = req.flash('alertMessage');
+      const alertStatus = req.flash('alertStatus');
+      const alert = { message: alertMessage, status: alertStatus };
+      if (req.session.user == null || req.session.user == undefined) {
+        res.render('index', {
+          alert,
+          title: 'Kurator Berita Admin | Login',
+        });
+      } else {
+        res.redirect('/admin/dashboard');
+      }
+      // console.log(category);
+    } catch (error) {
+      res.redirect('/admin/signin');
+    }
+  },
+  actionSignin: async (req, res) => {
+    try {
+      const { username, password } = req.body;
+      const user = await Users.findOne({ username: username });
+      if (!user) {
+        req.flash('alertMessage', 'User Not Found');
+        req.flash('alertStatus', 'danger');
+        res.redirect('/admin/signin');
+        return;
+      }
+      const isPasswordMatch = await bycrypt.compare(password, user.password);
+      if (!isPasswordMatch) {
+        req.flash('alertMessage', 'Password Not Correct');
+        req.flash('alertStatus', 'danger');
+        res.redirect('/admin/signin');
+        return;
+      }
+
+      req.session.user = {
+        id: user.id,
+        username: user.username,
+      };
+
+      res.redirect('/admin/dashboard');
+    } catch (error) {
+      res.redirect('/admin/signin');
+    }
+  },
+  actionLogout: (req, res) => {
+    req.session.destroy();
+    res.redirect('/admin/signin');
+  },
+
+  viewDashboard: async (req, res) => {
+    try {
+      const users = await Users.find();
+      const berita = await Berita.find();
+      const kategori = await Kategori.find();
+      res.render('admin/dashboard/view_dashboard', {
+        title: 'Kurator Berita Admin | Dashboard',
+        user: req.session.user,
+        users,
+        berita,
+        kategori,
+      });
+    } catch (error) {
+      res.redirect('/admin/dashboard');
+    }
   },
 
   viewKategori: async (req, res) => {
@@ -19,6 +84,7 @@ module.exports = {
         kategori,
         alert,
         title: 'Kurator Berita Admin | Kategori',
+        user: req.session.user,
       });
     } catch (error) {
       res.redirect('/admin/kategori');
@@ -70,10 +136,22 @@ module.exports = {
     }
   },
 
-  viewUsers: (req, res) => {
-    res.render('admin/users/view_users', {
-      title: 'Kurator Berita Admin | Users',
-    });
+  viewUsers: async (req, res) => {
+    try {
+      const users = await Users.find();
+      // console.log(kategori);
+      const alertMessage = req.flash('alertMessage');
+      const alertStatus = req.flash('alertStatus');
+      const alert = { message: alertMessage, status: alertStatus };
+      res.render('admin/users/view_users', {
+        users,
+        alert,
+        title: 'Kurator Berita Admin | Users',
+        user: req.session.user,
+      });
+    } catch (error) {
+      res.redirect('/admin/users');
+    }
   },
 
   viewBerita: async (req, res) => {
@@ -93,6 +171,7 @@ module.exports = {
         berita,
         alert,
         action: 'view',
+        user: req.session.user,
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -193,6 +272,7 @@ module.exports = {
   viewPencarian: (req, res) => {
     res.render('admin/pencarian/view_pencarian', {
       title: 'Kurator Berita Admin | Pencarian',
+      user: req.session.user,
     });
   },
 };

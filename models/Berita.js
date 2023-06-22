@@ -12,15 +12,12 @@ const beritaSchema = new mongoose.Schema({
   },
   date: {
     type: Date,
-    required: true,
   },
   imageUrl: {
     type: String,
-    required: true,
   },
   link: {
     type: String,
-    required: true,
   },
   kategoriId: {
     type: ObjectId,
