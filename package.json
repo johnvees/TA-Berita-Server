@@ -14,12 +14,14 @@
     "ejs": "~2.6.1",
     "express": "~4.16.1",
     "express-session": "^1.17.3",
+    "global": "^4.4.0",
     "http-errors": "~1.6.3",
     "method-override": "^3.0.0",
     "mongodb": "^5.6.0",
     "mongoose": "^7.3.1",
     "mongoose-seed": "^0.6.0",
     "morgan": "~1.9.1",
-    "startbootstrap-sb-admin-2": "^4.1.4"
+    "startbootstrap-sb-admin-2": "^4.1.4",
+    "vercel": "^30.2.3"
   }
 }
