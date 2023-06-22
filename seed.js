@@ -3,13 +3,8 @@ var mongoose = require('mongoose');
 
 // Connect to MongoDB via Mongoose
 seeder.connect(
-  'mongodb://127.0.0.1:27017/db_kuratorberita',
-  {
-    useNewUrlParser: true,
-    useCreateIndex: true,
-    useFindAndModify: true,
-    useUnifiedTopology: true,
-  },
+  'mongodb+srv://johnvees:johnvees@cluster0.kehkj0s.mongodb.net/db_kuratorberita?retryWrites=true&w=majority',
+
   function () {
     // Load Mongoose models
     seeder.loadModels(['./models/Users']);

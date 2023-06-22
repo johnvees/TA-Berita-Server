@@ -9,10 +9,13 @@ const flash = require('connect-flash');
 
 // import mongoose
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/db_kuratorberita');
+mongoose.connect(
+  'mongodb+srv://johnvees:johnvees@cluster0.kehkj0s.mongodb.net/db_kuratorberita?retryWrites=true&w=majority'
+);
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
+
 // router admin
 const adminRouter = require('./routes/admin');
 const apiRouter = require('./routes/api');
