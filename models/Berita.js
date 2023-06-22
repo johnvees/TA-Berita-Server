@@ -22,6 +22,7 @@ const beritaSchema = new mongoose.Schema({
   kategoriId: {
     type: ObjectId,
     ref: 'Kategori',
+    default: 'Portal Berita',
   },
 });
 
