@@ -25,6 +25,37 @@
               <th>Action</th>
             </tr>
           </thead>
+          <tbody>
+            <% for(let i = 0; i < berita.length; i++){ %>
+            <tr>
+              <td><%= i+1 %></td>
+              <td><%= berita[i].judul %></td>
+              <td><%= berita[i].isi %></td>
+              <td><%= berita[i].date %></td>
+              <td><%= berita[i].imageUrl %></td>
+              <td><%= berita[i].link %></td>
+              <td><%= berita[i].kategoriId.jenis %></td>
+              <td>
+                <form
+                  action="/admin/berita/<%= berita[i].id %>?_method=DELETE"
+                  method="POST"
+                >
+                  <a
+                    href="javascript:void()"
+                    type="button"
+                    class="btn btn-warning btn-sm button-update"
+                    data-id="<%= berita[i].id %>"
+                    data-name="<%= berita[i].jenis %>"
+                    ><i class="fas fa-edit"></i
+                  ></a>
+                  <button type="submit" href="" class="btn btn-danger btn-sm">
+                    <i class="fas fa-trash"></i>
+                  </button>
+                </form>
+              </td>
+            </tr>
+            <% } %>
+          </tbody>
         </table>
       </div>
     </div>

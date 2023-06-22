@@ -78,9 +78,12 @@ module.exports = {
 
   viewBerita: async (req, res) => {
     try {
-      const berita = await Berita.find();
+      const berita = await Berita.find().populate({
+        path: 'kategoriId',
+        select: 'id jenis',
+      });
       const kategori = await Kategori.find();
-      console.log(kategori);
+      // console.log(berita[1].kategoriId.jenis);
       const alertMessage = req.flash('alertMessage');
       const alertStatus = req.flash('alertStatus');
       const alert = { message: alertMessage, status: alertStatus };
@@ -100,7 +103,7 @@ module.exports = {
     try {
       const { kategoriId, judul, isi, tanggal, gambar, url } = req.body;
       const kategori = await Kategori.findOne({ _id: kategoriId });
-      console.log(judul);
+      // console.log(judul);
       const beritaBaru = {
         kategoriId: kategori._id,
         judul,
