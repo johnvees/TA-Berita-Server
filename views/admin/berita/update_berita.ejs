@@ -66,10 +66,10 @@
         <div class="form-group">
           <label for="kategoriId">Kategori</label>
           <select name="kategoriId" class="form-control">
-            <option value="<%= berita.kategoriId.jenis %>">
+            <option value="<%= berita.kategoriId._id %>">
               <%= berita.kategoriId.jenis %>
             </option>
-            <% for (let i = 1; i < kategori.length; i++) { %>
+            <% for (let i = 0; i < kategori.length; i++) { %>
             <option value="<%= kategori[i].id %>">
               <%= kategori[i].jenis %>
             </option>

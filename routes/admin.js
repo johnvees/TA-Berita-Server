@@ -16,6 +16,7 @@ router.get('/berita', adminController.viewBerita);
 router.post('/berita', adminController.addBerita);
 router.get('/berita/:id', adminController.showEditBerita);
 router.put('/berita/:id', adminController.editBerita);
+router.delete('/berita/:id', adminController.deleteBerita);
 
 router.get('/pencarian', adminController.viewPencarian);
 

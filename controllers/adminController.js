@@ -173,6 +173,22 @@ module.exports = {
       res.redirect('/admin/berita');
     }
   },
+  deleteBerita: async (req, res) => {
+    try {
+      const { id } = req.params;
+      await Berita.findOneAndDelete({ _id: id }).populate({
+        path: 'kategoriId',
+        select: 'id jenis',
+      });
+      req.flash('alertMessage', 'Berhasil Menghapus Berita');
+      req.flash('alertStatus', 'success');
+      res.redirect('/admin/berita');
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/admin/berita');
+    }
+  },
 
   viewPencarian: (req, res) => {
     res.render('admin/pencarian/view_pencarian', {
