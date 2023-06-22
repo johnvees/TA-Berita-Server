@@ -31,7 +31,7 @@
               <td><%= i+1 %></td>
               <td><%= berita[i].judul %></td>
               <td><%= berita[i].isi %></td>
-              <td><%= berita[i].date %></td>
+              <td><%= berita[i].date.toLocaleString('en-GB').split(',')[0] %></td>
               <td><%= berita[i].imageUrl %></td>
               <td><%= berita[i].link %></td>
               <td><%= berita[i].kategoriId.jenis %></td>
