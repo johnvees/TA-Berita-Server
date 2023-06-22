@@ -24,6 +24,13 @@ module.exports = {
     await kategori.save();
     res.redirect('/admin/kategori');
   },
+  deleteKategori: async (req, res) => {
+    const { id } = req.params;
+    await Kategori.findOneAndDelete({ _id: id });
+    // console.log(kategori);
+    // await kategori.remove();
+    res.redirect('/admin/kategori');
+  },
 
   viewUsers: (req, res) => {
     res.render('admin/users/view_users');
