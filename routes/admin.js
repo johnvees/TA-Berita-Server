@@ -14,6 +14,8 @@ router.get('/users', adminController.viewUsers);
 // endpoint berita
 router.get('/berita', adminController.viewBerita);
 router.post('/berita', adminController.addBerita);
+router.get('/berita/:id', adminController.showEditBerita);
+router.put('/berita/:id', adminController.editBerita);
 
 router.get('/pencarian', adminController.viewPencarian);
 

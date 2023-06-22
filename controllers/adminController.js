@@ -92,6 +92,7 @@ module.exports = {
         kategori,
         berita,
         alert,
+        action: 'view',
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
@@ -116,6 +117,54 @@ module.exports = {
       kategori.beritaId.push({ _id: berita._id });
       await kategori.save();
       req.flash('alertMessage', 'Berhasil Menambahkan Berita Baru');
+      req.flash('alertStatus', 'success');
+      res.redirect('/admin/berita');
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/admin/berita');
+    }
+  },
+  showEditBerita: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const berita = await Berita.findOne({ _id: id }).populate({
+        path: 'kategoriId',
+        select: 'id jenis',
+      });
+      const kategori = await Kategori.find();
+      const alertMessage = req.flash('alertMessage');
+      const alertStatus = req.flash('alertStatus');
+      const alert = { message: alertMessage, status: alertStatus };
+      res.render('admin/berita/view_berita', {
+        kategori,
+        berita,
+        alert,
+        title: 'Kurator Berita Admin | Update Berita',
+        action: 'update',
+      });
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/admin/berita');
+    }
+  },
+  editBerita: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const berita = await Berita.findOne({ _id: id }).populate({
+        path: 'kategoriId',
+        select: 'id jenis',
+      });
+      const { kategoriId, judul, isi, tanggal, gambar, url } = req.body;
+      berita.judul = judul;
+      berita.isi = isi;
+      berita.date = tanggal;
+      berita.imageUrl = gambar;
+      berita.link = url;
+      berita.kategoriId = kategoriId;
+      await berita.save();
+      req.flash('alertMessage', 'Berhasil Mengubah Berita');
       req.flash('alertStatus', 'success');
       res.redirect('/admin/berita');
     } catch (error) {

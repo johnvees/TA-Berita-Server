@@ -17,7 +17,7 @@
         <!-- Page Heading -->
         <h1 class="h3 mb-4 text-gray-800">Master Berita</h1>
         <!-- End Heading -->
-
+        <% if (action == 'view') { %>
         <ul class="nav nav-tabs" id="myTab" role="tablist">
           <li class="nav-item" role="presentation">
             <a
@@ -50,6 +50,27 @@
           <%- include('show_table_berita.ejs') %> <%- include('add_berita.ejs')
           %>
         </div>
+        <% } else if (action == 'update') { %>
+        <ul class="nav nav-tabs" id="myTab" role="tablist">
+          <li class="nav-item" role="presentation">
+            <a
+              class="nav-link active"
+              id="home-tab"
+              data-toggle="tab"
+              href="#update-berita"
+              role="tab"
+              aria-controls="home"
+              aria-selected="true"
+            >
+              Update Berita
+            </a>
+          </li>
+        </ul>
+        <div class="tab-content" id="myTabContent">
+          <%- include('update_berita.ejs') %>
+        </div>
+
+        <% } %>
       </div>
       <!-- /.container-fluid -->
     </div>
