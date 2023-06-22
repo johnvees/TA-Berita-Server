@@ -5,7 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 // import mongoose
 const mongoose = require('mongoose');
-mongoose.connect('mongodb://127.0.0.1:27017/myapp');
+mongoose.connect('mongodb://127.0.0.1:27017/db_kuratorberita');
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');

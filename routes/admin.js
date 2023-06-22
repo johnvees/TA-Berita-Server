@@ -4,6 +4,7 @@ const adminController = require('../controllers/adminController');
 router.get('/dashboard', adminController.viewDashboard);
 
 router.get('/kategori', adminController.viewKategori);
+router.post('/kategori', adminController.addKategori);
 
 router.get('/users', adminController.viewUsers);
 
