@@ -25,4 +25,20 @@ module.exports = {
       res.status(500).json({ message: 'Internal server error' });
     }
   },
+
+  addKategori: async (req, res) => {
+    try {
+      const { jenis } = req.body;
+
+      if (jenis === '') {
+        res.status(404).json({ message: 'gagal' });
+      }
+      await Kategori.create({ jenis });
+      res.status(200).json({ message: 'berhasil' });
+      res.status(201).json({ message: 'berhasil' });
+    } catch (error) {
+      console.log(error);
+      res.status(500).json({ message: 'Internal server error' });
+    }
+  },
 };

@@ -221,6 +221,7 @@ module.exports = {
         alert,
         title: 'Kurator Berita Admin | Update Berita',
         action: 'update',
+        user: req.session.user,
       });
     } catch (error) {
       req.flash('alertMessage', `${error.message}`);
