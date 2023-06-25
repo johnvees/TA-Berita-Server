@@ -3,6 +3,7 @@ const Berita = require('../models/Berita');
 const Users = require('../models/Users');
 // const Pencarian = require('../models/Pencarian');
 const bycrypt = require('bcryptjs');
+const axios = require('axios');
 
 module.exports = {
   viewSignin: async (req, res) => {
@@ -195,6 +196,105 @@ module.exports = {
       const berita = await Berita.create(beritaBaru);
       kategori.beritaId.push({ _id: berita._id });
       await kategori.save();
+      req.flash('alertMessage', 'Berhasil Menambahkan Berita Baru');
+      req.flash('alertStatus', 'success');
+      res.redirect('/admin/berita');
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/admin/berita');
+    }
+  },
+  addBeritaApi1: async (req, res) => {
+    try {
+      const { kategoriId, newsId } = req.body;
+      // Fetch data from the external API
+      const response = await axios.get(
+        `https://berita-indo-api.vercel.app/v1/${newsId}`
+      );
+      const kategori = await Kategori.findOne({ _id: kategoriId });
+      console.log(response.data.data.length);
+      for (let index = 0; index < response.data.data.length; index++) {
+        const beritaBaru = {
+          kategoriId: kategori._id,
+          judul: response.data.data[index].title,
+          isi: response.data.data[index].contentSnippet,
+          date: response.data.data[index].isoDate,
+          imageUrl: response.data.data[index].image.small,
+          link: response.data.data[index].link,
+        };
+        console.log(beritaBaru);
+        const berita = await Berita.create(beritaBaru);
+        kategori.beritaId.push({ _id: berita._id });
+        await kategori.save();
+      }
+
+      req.flash('alertMessage', 'Berhasil Menambahkan Berita Baru');
+      req.flash('alertStatus', 'success');
+      res.redirect('/admin/berita');
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/admin/berita');
+    }
+  },
+  addBeritaApi2: async (req, res) => {
+    try {
+      const { kategoriId, newsId } = req.body;
+      // Fetch data from the external API
+      const response = await axios.get(
+        `https://berita-indo-api.vercel.app/v1/${newsId}`
+      );
+      const kategori = await Kategori.findOne({ _id: kategoriId });
+      console.log(response.data.data.length);
+      for (let index = 0; index < response.data.data.length; index++) {
+        const beritaBaru = {
+          kategoriId: kategori._id,
+          judul: response.data.data[index].title,
+          isi: response.data.data[index].content,
+          date: response.data.data[index].isoDate,
+          imageUrl: response.data.data[index].image.small,
+          link: response.data.data[index].link,
+        };
+        console.log(beritaBaru);
+        const berita = await Berita.create(beritaBaru);
+        kategori.beritaId.push({ _id: berita._id });
+        await kategori.save();
+      }
+
+      req.flash('alertMessage', 'Berhasil Menambahkan Berita Baru');
+      req.flash('alertStatus', 'success');
+      res.redirect('/admin/berita');
+    } catch (error) {
+      req.flash('alertMessage', `${error.message}`);
+      req.flash('alertStatus', 'danger');
+      res.redirect('/admin/berita');
+    }
+  },
+  addBeritaApi3: async (req, res) => {
+    try {
+      const { kategoriId, newsId } = req.body;
+      // Fetch data from the external API
+      const response = await axios.get(
+        `https://berita-indo-api.vercel.app/v1/${newsId}`
+      );
+      const kategori = await Kategori.findOne({ _id: kategoriId });
+      console.log(response.data.data.length);
+      for (let index = 0; index < response.data.data.length; index++) {
+        const beritaBaru = {
+          kategoriId: kategori._id,
+          judul: response.data.data[index].title,
+          isi: response.data.data[index].description,
+          date: response.data.data[index].isoDate,
+          imageUrl: response.data.data[index].image.small,
+          link: response.data.data[index].link,
+        };
+        console.log(beritaBaru);
+        const berita = await Berita.create(beritaBaru);
+        kategori.beritaId.push({ _id: berita._id });
+        await kategori.save();
+      }
+
       req.flash('alertMessage', 'Berhasil Menambahkan Berita Baru');
       req.flash('alertStatus', 'success');
       res.redirect('/admin/berita');
